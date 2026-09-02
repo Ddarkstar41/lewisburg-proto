@@ -1,7 +1,7 @@
 ---
 title: Association Files Brief in First Circuit to allow Lewisburg to intervene in Lake Lots lawsuit
 date: yyyy-08-Mo
-summary: The board submitted written comments on the parish's proposed drainage improvements, asking for a closer look at downstream effects near the lakefront.
+summary: The Lewisburg Civic Association has filed its brief in the First Circuit, seeking to intervene in the lawsuit filed by Lake Lots.
 author: Lewisburg Neighborhood Association
 ---
 
