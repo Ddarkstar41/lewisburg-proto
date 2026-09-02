@@ -1,21 +1,15 @@
 ---
-title: Association Files Comments on Bayou Chinchuba Drainage Plan
-date: 2026-08-24
+title: Association Files Brief in First Circuit to allow Lewisburg to intervene in Lake Lots lawsuit
+date: yyyy-08-Mo
 summary: The board submitted written comments on the parish's proposed drainage improvements, asking for a closer look at downstream effects near the lakefront.
 author: Lewisburg Neighborhood Association
 ---
 
-The association submitted written comments this month on the parish's proposed drainage
-improvements along the Bayou Chinchuba corridor. The board's letter supports the general
-direction of the plan while raising three specific concerns.
+The Lewisburg Civic Association has filed its brief in the First Circuit, seeking to intervene in the lawsuit filed by Lake Lots.  
 
-## What we asked for
+Last September, after numerous comments and a very strong showing at the public hearing  by your neighbors, the Association, our parish and state representatives, and environmental groups, the State denied the permit request by Lake Lots for a development on the Lake in the Bayou Chinchuba watershed .  
 
-- A downstream analysis of how the improvements affect water levels near the lakefront during
-  high-water events, not just upstream capacity.
-- Construction traffic routing that keeps heavy equipment off Northlake Drive, Holly Street,
-  and Copal Street, none of which have sidewalks.
-- A published schedule so residents know when work is happening on their block.
+Lake Lots filed an appeal seeking review by the Court in Covington.  Lewisburg intervened, but the Judge dismissed the Association's intervention.  We filed an appeal to the First Circuit seeking to be allowed in the review process, and have now filed a brief on behalf of the Association.  In the meantime, the trial that was previously set for October 2026 has been postponed.   
 
 ## What happens next
 
