@@ -13,7 +13,7 @@ Lake Lots filed an appeal seeking review by the Court in Covington.  Lewisburg i
 
 ## What happens next
 
-Parish engineering has thirty days to respond to public comments. We will post the response
+ Parish engineering has thirty days to respond to public comments. We will post the response
 here when it arrives, along with any revised drawings.
 
 Residents who want to submit their own comments can still do so directly. The board is happy
