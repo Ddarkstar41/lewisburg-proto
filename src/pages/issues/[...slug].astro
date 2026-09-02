@@ -1,0 +1,94 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const issues = await getCollection('issues');
+  return issues.map((issue) => ({ params: { slug: issue.id }, props: { issue } }));
+}
+
+const { issue } = Astro.props;
+const { Content } = await render(issue);
+const d = issue.data;
+
+const labels = {
+  action: 'Action needed',
+  monitoring: 'Monitoring',
+  resolved: 'Resolved',
+  archived: 'Archived',
+};
+
+const fmt = (date) => date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Base title={d.title} description={d.summary}>
+  <article>
+    <p class="eyebrow">Issues &amp; Advocacy</p>
+    <h1>{d.title}</h1>
+
+    <div class="issue-head">
+      <span class:list={['pill', d.status]}>{labels[d.status]}</span>
+      {d.permit && <span class="permit">Permit {d.permit}</span>}
+      <span class="permit">Updated {fmt(d.updated)}</span>
+    </div>
+
+    {d.summary && <p class="lede">{d.summary}</p>}
+
+    {
+      d.actionHeadline && (
+        <div class="action-box">
+          <span class="label">What to do now</span>
+          <p><strong>{d.actionHeadline}</strong></p>
+          {d.actionDetail && <p>{d.actionDetail}</p>}
+          {d.actionDeadline && <p class="permit">Deadline: {d.actionDeadline}</p>}
+        </div>
+      )
+    }
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    {
+      d.timeline.length > 0 && (
+        <>
+          <h2>Timeline</h2>
+          <ul class="timeline">
+            {d.timeline.map((entry) => (
+              <li>
+                <span class="date">{entry.date}</span>
+                <p class="what">{entry.what}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      d.documents.length > 0 && (
+        <>
+          <h2>Documents</h2>
+          <ul class="docs">
+            {d.documents.map((doc) => (
+              <li>
+                {doc.url ? <a href={doc.url}>{doc.label}</a> : <span>{doc.label}</span>}
+                {doc.kind && <span class="kind">{doc.kind}</span>}
+                {doc.note && <span class="note">{doc.note}</span>}
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    <div class="tbd-flag">
+      <strong>Needs verification before launch</strong>
+      The timeline dates, the current permit status, and the document files are placeholders drawn
+      from the old site's summary. Someone who followed this closely should confirm the sequence and
+      re-upload the original PDFs.
+    </div>
+  </article>
+
+  <a class="back" href="/issues/">← All issues</a>
+</Base>

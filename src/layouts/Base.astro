@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+
+const {
+  title,
+  description = 'Lewisburg Neighborhood Association — Mandeville, Louisiana',
+  bareHeader = false,
+} = Astro.props;
+const path = Astro.url.pathname;
+const isCurrent = (href) => (path === href || (href !== '/' && path.startsWith(href)) ? 'page' : undefined);
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <title>{title ? `${title} · Historic Lewisburg` : 'Historic Lewisburg'}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+  </head>
+  <body>
+    <div class="proto-banner">
+      PROTOTYPE — built to test the editing workflow. Content is a sample.
+    </div>
+
+    <header class:list={['site-header', bareHeader && 'bare']}>
+      <div class="wrap inner">
+        {!bareHeader && <a class="wordmark" href="/">Historic <span>Lewisburg</span></a>}
+        <nav class="site-nav" aria-label="Main">
+          <a href="/about/" aria-current={isCurrent('/about')}>About</a>
+          <a href="/events-and-news/" aria-current={isCurrent('/events-and-news')}>Events &amp; News</a>
+          <a href="/issues/" aria-current={isCurrent('/issues')}>Issues</a>
+          <a href="/get-involved/" aria-current={isCurrent('/get-involved')}>Get Involved</a>
+          <a href="/contact/" aria-current={isCurrent('/contact')}>Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <slot name="hero" />
+
+    <main class="wrap">
+      <slot />
+    </main>
+
+    <footer class="site-footer wrap">
+      <span>Lewisburg Neighborhood Association · Mandeville, LA</span>
+      <span><a href="/admin/">Board login</a> · &copy; {year}</span>
+    </footer>
+  </body>
+</html>

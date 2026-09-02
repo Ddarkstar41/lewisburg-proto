@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+
+const contacts = [
+  {
+    who: 'The association',
+    detail: 'General questions, joining the email list, getting something on a meeting agenda.',
+    value: 'HistoricLewisburg@gmail.com',
+    tbd: 'Replace with an association address on the new domain.',
+  },
+  {
+    who: 'Parish council representative',
+    detail: 'Zoning, land use, permits, anything headed for a council vote.',
+    tbd: 'Name, district number, phone, and email.',
+  },
+  {
+    who: 'Permits and planning',
+    detail: 'Building permits, variances, and checking whether work on a neighboring lot is permitted.',
+    tbd: 'St. Tammany Parish department name, phone, and portal link.',
+  },
+  {
+    who: 'Drainage and roads',
+    detail: 'Standing water, blocked ditches, potholes, and shoulder damage on Northlake, Holly, and Copal.',
+    tbd: 'Parish public works number and the online reporting form, if there is one.',
+  },
+  {
+    who: 'Sheriff — non-emergency',
+    detail: 'Suspicious activity, noise, abandoned vehicles. For anything urgent, call 911.',
+    tbd: 'Non-emergency dispatch number.',
+  },
+  {
+    who: 'Coastal permits — LDNR',
+    detail: 'Filing a public comment on a waterfront permit application.',
+    tbd: 'Current name of the department and the link to the public comment portal.',
+  },
+];
+---
+
+<Base title="Contact & Government">
+  <p class="eyebrow">Directory</p>
+  <h1>Who to call for what</h1>
+  <p class="lede">
+    Most questions that reach the association are really questions for the parish. This page is here
+    so you can skip a step.
+  </p>
+
+  <ul class="contact-list">
+    {
+      contacts.map((c) => (
+        <li>
+          <span class="who">{c.who}</span>
+          <div>
+            <p class="detail">{c.detail}</p>
+            {c.value && <p class="detail"><strong>{c.value}</strong></p>}
+            {c.tbd && <p class="tbd">To fill in — {c.tbd}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="tbd-flag">
+    <strong>Prototype note</strong>
+    Every phone number and office name here is deliberately blank rather than guessed. Someone on the
+    board should fill these in from primary sources — a wrong number on this page is worse than no
+    page at all, because people will trust it.
+  </div>
+
+  <h2>Report something to the association</h2>
+  <p>
+    For anything the parish doesn't handle — a neighbor to welcome, a photo for the site, a correction
+    to the history pages, or something you think the board should be watching.
+  </p>
+  <div class="tbd-flag">
+    <strong>To wire up</strong>
+    A simple contact form goes here. It sends to the association inbox; no account or login needed.
+  </div>
+</Base>

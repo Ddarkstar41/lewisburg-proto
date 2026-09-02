@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date - a.data.date).slice(0, 3);
+
+const now = new Date();
+const events = (await getCollection('events'))
+  .filter((e) => e.data.date >= new Date(now.getFullYear(), now.getMonth(), now.getDate()))
+  .sort((a, b) => a.data.date - b.data.date)
+  .slice(0, 3);
+
+const fmt = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const fmtShort = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+---
+
+<Base title={null} bareHeader={true}>
+  <section class="hero-plate" slot="hero">
+    <div class="frame">
+      <img
+        src="/uploads/lake-sunset.jpg"
+        width="2400"
+        height="1214"
+        alt="Sunset over Lake Pontchartrain from the Lewisburg lakefront, old pilings running out into the water"
+        fetchpriority="high"
+      />
+      <div class="veil"></div>
+      <div class="plate">
+        <h1><em>Historic</em> Lewisburg</h1>
+        <span class="rule"></span>
+        <p class="sub">Mandeville, Louisiana &middot; On the North Shore</p>
+      </div>
+    </div>
+    <div class="copy">
+      <p class="lede">
+        Lewisburg sits along the north shore of Lake Pontchartrain just west of the Causeway — live oaks,
+        Spanish moss, and a few hundred neighbors who look out for the place.
+      </p>
+    </div>
+  </section>
+
+  <h2>Latest news</h2>
+  <ul class="entries">
+    {
+      posts.map((post) => (
+        <li>
+          <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+          <div>
+            <div class="title"><a href={`/events-and-news/${post.id}/`}>{post.data.title}</a></div>
+            {post.data.summary && <p class="summary">{post.data.summary}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Coming up</h2>
+  {
+    events.length === 0 ? (
+      <p>No upcoming events posted yet.</p>
+    ) : (
+      <ul class="entries">
+        {events.map((event) => (
+          <li>
+            <span class="when">{fmtShort(event.data.date)}</span>
+            <div>
+              <div class="title">{event.data.title}</div>
+              {event.data.summary && <p class="summary">{event.data.summary}</p>}
+              <p class="meta">
+                {[event.data.time, event.data.location].filter(Boolean).join(' · ')}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <div class="card">
+    <span class="label">For the board</span>
+    <p>
+      Everything on this page — the news posts and the events — comes from files a board member can
+      create and edit in the browser. Nothing here required touching code.
+    </p>
+    <p><a href="/admin/">Open the editor →</a></p>
+  </div>
+</Base>

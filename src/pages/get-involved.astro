@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Get Involved">
+  <p class="eyebrow">Membership</p>
+  <h1>Get Involved</h1>
+  <p class="lede">
+    The association runs on a small number of people doing small amounts of work. Here is every way
+    in, from thirty seconds to a standing commitment.
+  </p>
+
+  <div class="stack">
+    <section class="panel">
+      <h2>Join the email list</h2>
+      <p>
+        A short note when something happens — a meeting, a deadline, a permit filing. Usually once or
+        twice a month, never more than weekly, and never for anything that isn't about Lewisburg.
+      </p>
+      <form class="signup" onsubmit="return false;">
+        <label for="email" class="visually-hidden" style="position:absolute;left:-9999px">Email address</label>
+        <input id="email" type="email" name="email" placeholder="you@example.com" required />
+        <button type="submit">Sign up</button>
+      </form>
+      <p class="form-note">
+        Prototype only — this form isn't connected yet. On the real site it feeds the association's
+        mailing list directly.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Dues</h2>
+      <p>
+        Annual dues cover the picnic, the cleanups, printing, and the association's share of expert
+        reports when we take up an issue. Paying online takes a minute; you can also hand a check to
+        any board member.
+      </p>
+      <div class="tbd-flag">
+        <strong>To fill in</strong>
+        Dues amount, what a year of dues actually pays for, and the payment link. The board needs to
+        confirm whether the association has an EIN and a bank account in its own name — that decides
+        whether processing is free or costs about 3%.
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Come to a meeting</h2>
+      <p>
+        Meetings are open to every resident, whether or not you've paid dues. Agendas go out on the
+        email list the week before.
+      </p>
+      <div class="tbd-flag">
+        <strong>To fill in</strong>
+        Meeting schedule, location, and how to get an item on the agenda.
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Volunteer</h2>
+      <p>
+        The jobs that actually need doing: setup and breakdown at the picnic, a few hours at a
+        cleanup, photographing the neighborhood, welcoming new residents, and keeping this website
+        current. None of it is a year-round commitment.
+      </p>
+    </section>
+
+    <section class="panel warm">
+      <h2>The board</h2>
+      <div class="tbd-flag">
+        <strong>To fill in</strong>
+        Board roster with roles and term end dates, and how elections work.
+      </div>
+    </section>
+  </div>
+</Base>

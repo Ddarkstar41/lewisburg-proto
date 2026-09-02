@@ -1,0 +1,192 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+#
+# Configured for Ddarkstar41/lewisburg-proto on Netlify.
+# If you rename the repo or the Netlify project, update `repo:` and
+# `site_url:` below to match.
+
+backend:
+  name: github
+  repo: Ddarkstar41/lewisburg-proto
+  branch: main
+  # Hosting on Netlify? Nothing else is needed here — Netlify's built-in
+  # OAuth handles the login once you install the GitHub provider under
+  # Project configuration → Access & security → OAuth.
+  #
+  # Hosting somewhere else? Deploy the sveltia-cms-auth Cloudflare Worker
+  # and uncomment the line below, pointing it at your worker:
+  # base_url: https://your-worker.workers.dev
+
+# Where uploaded images are stored in the repo, and how the site links to them.
+media_folder: /public/uploads
+public_folder: /uploads
+
+# A small quality-of-life touch: shows editors the live page for an entry.
+site_url: https://lewisburg-proto.netlify.app
+
+collections:
+  - name: posts
+    label: News Posts
+    label_singular: News Post
+    description: Announcements and updates. These appear under "News" on the Events & News page.
+    folder: /src/content/posts
+    create: true
+    slug: '{{slug}}'
+    preview_path: events-and-news/{{slug}}
+    sortable_fields: [date, title]
+    fields:
+      - label: Headline
+        name: title
+        widget: string
+        hint: Keep it under about ten words.
+
+      - label: Date
+        name: date
+        widget: datetime
+        format: yyyy-MM-dd
+        date_format: MMMM d, yyyy
+        time_format: false
+        default: ''
+
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+        hint: One or two sentences. Shows on the news list and the home page.
+
+      - label: Posted by
+        name: author
+        widget: string
+        required: false
+        default: Lewisburg Neighborhood Association
+
+      - label: Body
+        name: body
+        widget: markdown
+
+  - name: events
+    label: Events
+    label_singular: Event
+    description: Meetings, picnics, cleanups — anything with a date. These appear under "Coming up" on the Events & News page.
+    folder: /src/content/events
+    create: true
+    slug: '{{slug}}'
+    sortable_fields: [date, title]
+    fields:
+      - label: Event name
+        name: title
+        widget: string
+
+      - label: Date
+        name: date
+        widget: datetime
+        format: yyyy-MM-dd
+        date_format: MMMM d, yyyy
+        time_format: false
+        default: ''
+
+      - label: Time
+        name: time
+        widget: string
+        required: false
+        hint: 'Written however you like — for example: 6:30 PM, or 11:00 AM – 3:00 PM'
+
+      - label: Location
+        name: location
+        widget: string
+        required: false
+
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+        hint: One or two sentences shown on the events list.
+
+      - label: Details
+        name: body
+        widget: markdown
+        required: false
+
+  - name: issues
+    label: Issues & Advocacy
+    label_singular: Issue
+    description: Permits, developments, and anything the association is formally weighing in on.
+    folder: /src/content/issues
+    create: true
+    slug: '{{slug}}'
+    preview_path: issues/{{slug}}
+    sortable_fields: [updated, title]
+    fields:
+      - label: Issue name
+        name: title
+        widget: string
+
+      - label: Status
+        name: status
+        widget: select
+        default: monitoring
+        options:
+          - { label: 'Action needed — residents should do something now', value: action }
+          - { label: 'Monitoring — no action needed yet', value: monitoring }
+          - { label: 'Resolved', value: resolved }
+          - { label: 'Archived', value: archived }
+
+      - label: Permit or case number
+        name: permit
+        widget: string
+        required: false
+
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+        hint: One or two sentences shown on the issues list.
+
+      - label: Last updated
+        name: updated
+        widget: datetime
+        format: yyyy-MM-dd
+        date_format: MMMM d, yyyy
+        time_format: false
+
+      - label: What to do now — headline
+        name: actionHeadline
+        widget: string
+        required: false
+        hint: Leave blank if there is nothing for residents to do right now.
+
+      - label: What to do now — detail
+        name: actionDetail
+        widget: text
+        required: false
+
+      - label: Deadline
+        name: actionDeadline
+        widget: string
+        required: false
+        hint: 'Write it plainly, for example: March 5, 2027 — or "No open deadline".'
+
+      - label: Timeline
+        name: timeline
+        widget: list
+        required: false
+        label_singular: Entry
+        summary: '{{fields.date}} — {{fields.what}}'
+        fields:
+          - { label: Date, name: date, widget: string }
+          - { label: What happened, name: what, widget: text }
+
+      - label: Documents
+        name: documents
+        widget: list
+        required: false
+        label_singular: Document
+        summary: '{{fields.label}}'
+        fields:
+          - { label: Title, name: label, widget: string }
+          - { label: Kind, name: kind, widget: string, required: false, hint: 'PDF, Article, Public record…' }
+          - { label: Link or file, name: url, widget: string, required: false }
+          - { label: Note, name: note, widget: text, required: false }
+
+      - label: Body
+        name: body
+        widget: markdown

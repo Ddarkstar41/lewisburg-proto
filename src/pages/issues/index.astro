@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const issues = (await getCollection('issues')).sort((a, b) => b.data.updated - a.data.updated);
+
+const labels = {
+  action: 'Action needed',
+  monitoring: 'Monitoring',
+  resolved: 'Resolved',
+  archived: 'Archived',
+};
+
+const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Base title="Issues & Advocacy">
+  <p class="eyebrow">Advocacy</p>
+  <h1>Issues &amp; Advocacy</h1>
+  <p class="lede">
+    When decisions get made about this stretch of shoreline, the association speaks for the
+    neighborhood. Every issue we take up is documented here — what's proposed, why it matters, and
+    what you can do about it right now.
+  </p>
+
+  <ul class="entries">
+    {
+      issues.map((issue) => (
+        <li>
+          <span class="when">
+            <span class:list={['pill', issue.data.status]}>{labels[issue.data.status]}</span>
+          </span>
+          <div>
+            <div class="title"><a href={`/issues/${issue.id}/`}>{issue.data.title}</a></div>
+            {issue.data.summary && <p class="summary">{issue.data.summary}</p>}
+            <p class="meta">
+              {issue.data.permit && `Permit ${issue.data.permit} · `}Updated {fmt(issue.data.updated)}
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="tbd-flag">
+    <strong>Prototype note</strong>
+    Every issue page follows the same structure — status, what's proposed, why it matters, a dated
+    timeline, the document archive, and what to do now. Adding a second or third issue is filling in
+    a form, not designing a new page.
+  </div>
+</Base>

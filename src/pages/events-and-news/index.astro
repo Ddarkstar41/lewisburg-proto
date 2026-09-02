@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date - a.data.date);
+
+const allEvents = await getCollection('events');
+const today = new Date();
+const midnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+const upcoming = allEvents.filter((e) => e.data.date >= midnight).sort((a, b) => a.data.date - b.data.date);
+const past = allEvents.filter((e) => e.data.date < midnight).sort((a, b) => b.data.date - a.data.date);
+
+const thisYear = today.getFullYear();
+const fmtEvent = (d) =>
+  d.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    ...(d.getFullYear() === thisYear ? {} : { year: 'numeric' }),
+  });
+const fmtPost = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<Base title="Events & News">
+  <p class="eyebrow">What's happening</p>
+  <h1>Events &amp; News</h1>
+  <p class="lede">
+    Meetings, picnics, and cleanups on the calendar — and everything else worth telling the
+    neighborhood about.
+  </p>
+
+  <h2>Coming up</h2>
+  {
+    upcoming.length === 0 ? (
+      <p>Nothing on the calendar right now.</p>
+    ) : (
+      <ul class="entries">
+        {upcoming.map((event) => (
+          <li>
+            <span class="when">{fmtEvent(event.data.date)}</span>
+            <div>
+              <div class="title">{event.data.title}</div>
+              {event.data.summary && <p class="summary">{event.data.summary}</p>}
+              <p class="meta">{[event.data.time, event.data.location].filter(Boolean).join(' · ')}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <h2>News</h2>
+  <ul class="entries">
+    {
+      posts.map((post) => (
+        <li>
+          <time datetime={post.data.date.toISOString()}>{fmtPost(post.data.date)}</time>
+          <div>
+            <div class="title">
+              <a href={`/events-and-news/${post.id}/`}>{post.data.title}</a>
+            </div>
+            {post.data.summary && <p class="summary">{post.data.summary}</p>}
+            {post.data.author && <p class="meta">{post.data.author}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    past.length > 0 && (
+      <>
+        <h2>Past events</h2>
+        <ul class="entries">
+          {past.map((event) => (
+            <li>
+              <span class="when">{fmtEvent(event.data.date)}</span>
+              <div>
+                <div class="title">{event.data.title}</div>
+                {event.data.summary && <p class="summary">{event.data.summary}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</Base>
