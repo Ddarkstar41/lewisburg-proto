@@ -5,7 +5,7 @@ summary: Bags, gloves, and coffee provided. Meet at the corner of Northlake and 
 author: Volunteer Committee
 ---
 
-Test fall cleanup is on the calendar. We will work the shoulder along Northlake Drive from
+Test test t fall cleanup is on the calendar. We will work the shoulder along Northlake Drive from
 Holly Street west to the bayou, which collects most of the litter that blows in off the
 highway over the summer.
 
